@@ -1,6 +1,5 @@
 package com.diegomota.cursomc;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -14,6 +13,7 @@ import com.diegomota.cursomc.domain.Cidade;
 import com.diegomota.cursomc.domain.Cliente;
 import com.diegomota.cursomc.domain.Endereco;
 import com.diegomota.cursomc.domain.Estado;
+import com.diegomota.cursomc.domain.ItemPedido;
 import com.diegomota.cursomc.domain.Pagamento;
 import com.diegomota.cursomc.domain.PagamentoComBoleto;
 import com.diegomota.cursomc.domain.PagamentoComCartao;
@@ -26,6 +26,7 @@ import com.diegomota.cursomc.repositories.CidadeRepository;
 import com.diegomota.cursomc.repositories.ClienteRepository;
 import com.diegomota.cursomc.repositories.EnderecoRepository;
 import com.diegomota.cursomc.repositories.EstadoRepository;
+import com.diegomota.cursomc.repositories.ItemPedidoRepository;
 import com.diegomota.cursomc.repositories.PagamentoRepository;
 import com.diegomota.cursomc.repositories.PedidoRepository;
 import com.diegomota.cursomc.repositories.ProdutoRepository;
@@ -56,6 +57,11 @@ public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+	
+	
 	
 	
 	public static void main(String[] args) {
@@ -108,7 +114,6 @@ public class CursomcApplication implements CommandLineRunner {
 		enderecoRepository.save(Arrays.asList(e1,e2));
 		
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd//MM/yyyy HH:mm");
 		
 		Pedido ped1 = new Pedido(null, new Date(), cli1, e1);
 		Pedido ped2 = new Pedido(null, new Date(), cli1, e2);
@@ -124,6 +129,22 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		pedidoRepository.save(Arrays.asList(ped1,ped2));
 		pagamentoRepository.save(Arrays.asList(pagto1,pagto2));
+		
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 1, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 1000.0, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		
+		itemPedidoRepository.save(Arrays.asList(ip1,ip2,ip3));
+		
 	}
 
 }
