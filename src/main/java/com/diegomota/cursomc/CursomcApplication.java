@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 import com.diegomota.cursomc.domain.Categoria;
 import com.diegomota.cursomc.domain.Cidade;
@@ -32,7 +34,7 @@ import com.diegomota.cursomc.repositories.PedidoRepository;
 import com.diegomota.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
-public class CursomcApplication implements CommandLineRunner {
+public class CursomcApplication extends SpringBootServletInitializer  implements CommandLineRunner {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
@@ -67,6 +69,13 @@ public class CursomcApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
 	}
+	
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(CursomcApplication.class);
+	}
+	
 
 	@Override
 	public void run(String... args) throws Exception {
