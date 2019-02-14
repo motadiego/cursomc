@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.diegomota.cursomc.domain.Categoria;
+import com.diegomota.cursomc.dto.CategoriaDTO;
 import com.diegomota.cursomc.repositories.CategoriaRepository;
 import com.diegomota.cursomc.services.exceptions.DataIntegrationException;
 import com.diegomota.cursomc.services.exceptions.ObjectNotFoundException;
@@ -72,4 +73,8 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 	
+	
+	public Categoria fromDTO(CategoriaDTO categoriaDTO){
+		return new Categoria(categoriaDTO.getId() , categoriaDTO.getNome());
+	}
 }
