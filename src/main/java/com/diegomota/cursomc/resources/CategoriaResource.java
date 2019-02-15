@@ -47,6 +47,7 @@ public class CategoriaResource {
 	
 	@RequestMapping(value="{id}" , method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDTO , @PathVariable Integer id){
+		categoriaDTO.setId(id);
 		Categoria categoria = service.fromDTO(categoriaDTO);
 		categoria = service.update(categoria);
 		
@@ -81,12 +82,5 @@ public class CategoriaResource {
 		Page<CategoriaDTO> listDTO = list.map(obj -> new CategoriaDTO(obj));
 		
 		return ResponseEntity.ok().body(listDTO);
- 	}
-	
-	
-	
-	
-	
-	
-	
+ 	}	
 }
