@@ -33,9 +33,9 @@ public class ClienteService {
 		return cat;
 	}
 	
-	public Cliente update(Cliente cliente) {
-		Cliente newObj = find(cliente.getId());
-		updateData(newObj , cliente);
+	public Cliente update(Cliente obj) {
+		Cliente newObj = find(obj.getId());
+		updateData(newObj , obj);
 		return repo.save(newObj);
 	}
 	
@@ -73,8 +73,8 @@ public class ClienteService {
 	  return new Cliente(clienteDTO.getId() , clienteDTO.getNome(), clienteDTO.getEmail() , null , null) ;
 	}
 	
-	private void updateData(Cliente newObj, Cliente cliente) {
-		newObj.setNome(cliente.getNome());
-		newObj.setEmail(cliente.getEmail());
+	private void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
 	}
 }
