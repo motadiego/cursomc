@@ -34,9 +34,9 @@ public class CategoriaService {
 	}
 	
 	
-	public Categoria insert(Categoria categoria) {
-		categoria.setId(null);
-		return repo.save(categoria);
+	public Categoria insert(Categoria obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 	
 	
@@ -75,8 +75,8 @@ public class CategoriaService {
 	}
 	
 	
-	public Categoria fromDTO(CategoriaDTO categoriaDTO){
-		return new Categoria(categoriaDTO.getId() , categoriaDTO.getNome());
+	public Categoria fromDTO(CategoriaDTO objDTO){
+		return new Categoria(objDTO.getId() , objDTO.getNome());
 	}
 	
 	private void updateData(Categoria newObj, Categoria obj) {
