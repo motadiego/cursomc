@@ -2,21 +2,21 @@ package com.diegomota.cursomc.resources.exception;
 
 import java.io.Serializable;
 
-public class FieldMenssage implements Serializable {
+public class FieldMessage implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private String fieldName;
-	private String menssage;
+	private String message;
 	
-	public FieldMenssage() {
+	public FieldMessage() {
 		
 	}
 
-	public FieldMenssage(String fieldName, String menssage) {
+	public FieldMessage(String fieldName, String menssage) {
 		super();
 		this.fieldName = fieldName;
-		this.setMenssage(menssage);
+		this.setMessage(menssage);
 	}
 
 	public String getFieldName() {
@@ -27,11 +27,12 @@ public class FieldMenssage implements Serializable {
 		this.fieldName = fieldName;
 	}
 
-	public String getMenssage() {
-		return menssage;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setMenssage(String menssage) {
-		this.menssage = menssage;
+	public void setMessage(String message) {
+		this.message = message;
 	}
+	
 }
