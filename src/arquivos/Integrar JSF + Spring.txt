@@ -1,0 +1,6 @@
+
+Link do curso no youtube
+https://www.youtube.com/watch?v=sYUgBJ_wgts&list=PLKvsMn7xWutZhiPiI99djHef7X3OhyI7l&index=6
+
+Link da lib usada para integrar o spring com o JFS
+https://github.com/joinfaces
