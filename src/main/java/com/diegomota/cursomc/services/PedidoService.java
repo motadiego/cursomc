@@ -1,10 +1,18 @@
 package com.diegomota.cursomc.services;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.diegomota.cursomc.domain.ItemPedido;
+import com.diegomota.cursomc.domain.PagamentoComBoleto;
 import com.diegomota.cursomc.domain.Pedido;
+import com.diegomota.cursomc.domain.enums.EstadoPagamento;
+import com.diegomota.cursomc.repositories.ItemPedidoRepository;
+import com.diegomota.cursomc.repositories.PagamentoRepository;
 import com.diegomota.cursomc.repositories.PedidoRepository;
+import com.diegomota.cursomc.repositories.ProdutoRepository;
 import com.diegomota.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -12,6 +20,19 @@ public class PedidoService {
 	
 	@Autowired
 	private PedidoRepository repo;
+	
+	@Autowired
+	private BoletoService boletoService;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+	
 	
 	public Pedido find(Integer id) {
 		Pedido cat =  repo.findOne(id);
@@ -25,4 +46,30 @@ public class PedidoService {
 		return cat;
 	}
 	
+	
+	public Pedido insert(Pedido obj) {
+		obj.setId(null);
+		obj.setInstante(new Date());
+		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
+		obj.getPagamento().setPedido(obj);
+		if(obj.getPagamento() instanceof PagamentoComBoleto) {
+			PagamentoComBoleto pagamentoComBoleto = (PagamentoComBoleto) obj.getPagamento();
+			boletoService.preencherPagamentoComBoleto(pagamentoComBoleto, obj.getInstante());
+			
+		}
+		
+		obj = repo.save(obj);
+		pagamentoRepository.save(obj.getPagamento());
+		
+		for (ItemPedido ip : obj.getItens()) {
+			ip.setDesconto(0.0);
+			ip.setPreco(produtoRepository.findOne(ip.getProduto().getId()).getPreco());
+			ip.setPedido(obj);
+		}
+		
+		itemPedidoRepository.save(obj.getItens());
+		
+		return obj;
+		
+	}
 }
