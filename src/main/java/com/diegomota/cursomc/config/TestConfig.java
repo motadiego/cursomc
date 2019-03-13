@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import com.diegomota.cursomc.services.DBService;
 import com.diegomota.cursomc.services.EmailService;
 import com.diegomota.cursomc.services.MockEmailService;
+import com.diegomota.cursomc.services.SmtpEmailSerice;
 
 @Configuration
 @Profile("test")
@@ -28,4 +29,8 @@ public class TestConfig {
 		return new MockEmailService();	
 	}
 	
+	@Bean
+	public EmailService smtpEmailService() {
+		return new SmtpEmailSerice();
+	}
 }

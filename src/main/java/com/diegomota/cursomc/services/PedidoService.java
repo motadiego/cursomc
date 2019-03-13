@@ -37,8 +37,20 @@ public class PedidoService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
+	
+	/***
+	 * Recupera uma instancia de MockEmailService definido nas classes TestConfig, DevConfig
+	 */
 	@Autowired
 	private EmailService emailService;
+	
+	
+	/***
+	 * Recupera uma instancia de SmtpEmailService definido nas classes TestConfig, DevConfig
+	 */
+	
+	@Autowired
+	private EmailService smtpEmailService;
 	
 	
 	public Pedido find(Integer id) {
@@ -77,9 +89,10 @@ public class PedidoService {
 		}
 		
 		itemPedidoRepository.save(obj.getItens());
-		emailService.sendOrderConfirmationEmail(obj);
+	
+		//emailService.sendOrderConfirmationEmail(obj);
+		smtpEmailService.sendOrderConfirmationEmail(obj);
 		
 		return obj;
-		
 	}
 }
