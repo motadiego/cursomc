@@ -11,11 +11,13 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.diegomota.cursomc.domain.enums.Perfil;
 import com.diegomota.cursomc.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -48,8 +50,12 @@ public class Cliente implements Serializable {
 	@JsonIgnore
 	private String senha;
 	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="perfis")
+	private Set<Integer> perfis = new HashSet<Integer>();
+	
 	public Cliente() {
-		
+		addPerfil(Perfil.CLIENTE);
 	}
 	
 	
@@ -62,6 +68,7 @@ public class Cliente implements Serializable {
 		this.cpfCnpj = cpfCnpj;
 		this.tipo = (tipo == null) ? null : tipo.getCod();
 		this.senha = senha;
+		addPerfil(Perfil.CLIENTE);
 	}
 	
 	public Integer getId() {
@@ -129,8 +136,21 @@ public class Cliente implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-
+	
+	
+	public Set<Perfil> getPerfis(){
+		Set<Perfil> lista = new HashSet<>();
+		for (Integer perfil : perfis) {
+			lista.add(Perfil.toEnum(perfil));
+		}
+		
+		return lista;
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
+	
 
 	@Override
 	public int hashCode() {
