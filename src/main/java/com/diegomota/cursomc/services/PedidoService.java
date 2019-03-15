@@ -46,13 +46,6 @@ public class PedidoService {
 	
 	
 	/***
-	 * Recupera uma instancia de MockEmailService definido nas classes TestConfig, DevConfig
-	 */
-	@Autowired
-	private EmailService emailService;
-	
-	
-	/***
 	 * Recupera uma instancia de SmtpEmailService definido nas classes TestConfig, DevConfig
 	 */
 	
