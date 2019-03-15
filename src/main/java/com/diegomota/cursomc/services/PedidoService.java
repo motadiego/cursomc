@@ -3,17 +3,24 @@ package com.diegomota.cursomc.services;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.diegomota.cursomc.domain.Cliente;
 import com.diegomota.cursomc.domain.ItemPedido;
 import com.diegomota.cursomc.domain.PagamentoComBoleto;
 import com.diegomota.cursomc.domain.Pedido;
 import com.diegomota.cursomc.domain.enums.EstadoPagamento;
+import com.diegomota.cursomc.domain.enums.Perfil;
 import com.diegomota.cursomc.repositories.ClienteRepository;
 import com.diegomota.cursomc.repositories.ItemPedidoRepository;
 import com.diegomota.cursomc.repositories.PagamentoRepository;
 import com.diegomota.cursomc.repositories.PedidoRepository;
 import com.diegomota.cursomc.repositories.ProdutoRepository;
+import com.diegomota.cursomc.security.UserSS;
+import com.diegomota.cursomc.services.exceptions.AuthorizationException;
 import com.diegomota.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -54,15 +61,21 @@ public class PedidoService {
 	
 	
 	public Pedido find(Integer id) {
-		Pedido cat =  repo.findOne(id);
+		UserSS user = UserService.authenticated();
 		
-		if(cat == null) {
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
+		Pedido ped =  repo.findOne(id);
+		
+		if(ped == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id 
 					+ ", Tipo: " + Pedido.class.getName());
 		}
 		
 		
-		return cat;
+		return ped;
 	}
 	
 	
@@ -97,4 +110,23 @@ public class PedidoService {
 		
 		return obj;
 	}
+	
+	/*****
+	 * @param page
+	 * @param linesPerPage
+	 * @param orderBy
+	 * @param direction (ASC ou DESC)
+	 * @return0
+	 */
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
+		
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction) , orderBy);
+		Cliente cli =  clienteRepository.findOne(user.getId());
+		return repo.findByCliente(cli, pageRequest);
+	}
+	
 }

@@ -49,15 +49,15 @@ public class ClienteService {
 			throw new AuthorizationException("Acesso Negado");
 		}
 		
-		Cliente cat =  repo.findOne(id);
+		Cliente cli =  repo.findOne(id);
 		
-		if(cat == null) {
+		if(cli == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id 
 					+ ", Tipo: " + Cliente.class.getName());
 		}
 		
 		
-		return cat;
+		return cli;
 	}
 	
 
