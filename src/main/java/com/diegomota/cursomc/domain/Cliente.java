@@ -55,7 +55,7 @@ public class Cliente implements Serializable {
 	private Set<Integer> perfis = new HashSet<Integer>();
 	
 	
-	private String imageUrl;
+	/* private String imageUrl; */
 	
 	public Cliente() {
 		addPerfil(Perfil.CLIENTE);
@@ -181,15 +181,12 @@ public class Cliente implements Serializable {
 
 
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-		
+	/*
+	 * public String getImageUrl() { return imageUrl; }
+	 * 
+	 * 
+	 * 
+	 * public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+	 */
 	
 }
