@@ -19,7 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.diegomota.cursomc.security.JTWAuthenticationFilter;
+import com.diegomota.cursomc.security.JWTAuthenticationFilter;
 import com.diegomota.cursomc.security.JWTAuthorizationFilter;
 import com.diegomota.cursomc.security.JWTUtil;
 
@@ -71,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated();
 		
 		// adiciona o filtro de AUTENTICAÇÃO do JWT
-		http.addFilter(new JTWAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		
 		// adiciona o filtro de AUTORIZAÇÃO do JWT
 		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil , userDetailsService));
