@@ -2,8 +2,6 @@
 Api desenvolvida para controle de um carrinho de compras.
 
 ## Technoclogies
-
- <li>Rest Application</li>
  <li>Java 11</li>
  <li>Spring Boot</li>
  <li>Spring Data JPA</li>
