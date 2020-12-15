@@ -12,4 +12,5 @@ Api desenvolvida para controle de um carrinho de compras.
  <li>Hibernate</li>
  <li>PostgreSql database</li>
  <li>Integração com AWS</li>
-  <li>Documentação com Swagger</li>
+ <li>Documentação com Swagger</li>
+ <li>Maven</li>
