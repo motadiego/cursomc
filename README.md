@@ -7,7 +7,7 @@ Api desenvolvida para controle de um carrinho de compras.
  <li>Spring Data JPA</li>
  <li>Spring Security</li>
  <li>Autenticação com JWT</li>
- <li>PostgreSql database</li>
+ <li>MySql database</li>
  <li>Integração com AWS</li>
  <li>Documentação com Swagger</li>
  <li>Maven</li>
