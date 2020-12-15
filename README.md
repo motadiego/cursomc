@@ -2,13 +2,12 @@
   README.md
 </h2>
 
-
-<div class="Box-body px-5 pb-5">
-  <article class="markdown-body entry-content container-lg" itemprop="text">
+<div>
+  <article>
        <h1>
-       <a id="user-content-readings-application" class="anchor" aria-hidden="true" href="#readings-application"></a>
-       Curso mc
-      </h1>
+          <a id="user-content-readings-application" class="anchor" aria-hidden="true" href="#readings-application"></a>
+            Curso mc
+        </h1>
       <p>Api desenvolvida para controle de um carrinho de compras.</p>
       <h1><a id="user-content-technologies" class="anchor" aria-hidden="true" href="#technologies"></a>
         Technologies
